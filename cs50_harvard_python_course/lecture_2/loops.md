@@ -63,13 +63,14 @@ i += 1
 Notice how changing the operator to i < 3 allows our code to function as intended. We begin by counting with 0 and it iterates through our loop three times, producing three meows. Also, notice how i += 1 is the same as saying i = i + 1.
 
 - Our code at this point is illustrated as follows:
-![whle loop flow](w.png)
-
+  ![whle loop flow](w.png)
 
 ## For Loops
+
 - A for loop is a different type of loop.
 - To best understand a for loop, it’s best to begin by talking about a new variable type called a list in Python. As in other areas of our lives, we can have a grocery list, a to-do list, etc.
-- A for loop iterates through a list of items. For example, 
+- A for loop iterates through a list of items. For example,
+
 ```py
 for i in [0, 1, 2]:
     print("meow")
@@ -97,6 +98,7 @@ print("meow" * 3)
 
 print("meow\n" * 3, end="")
 ```
+
 Notice how this code produces three meows, each on a separate line. By adding end="" and the \n we tell the interpreter to add a line break at the end of each meow.
 
 Improving with User Input
@@ -104,13 +106,14 @@ Perhaps we want to get input from our user. We can use loops as a way of validat
 A common paradigm within Python is to use a while loop to validate the input of the user.
 For example, let’s try prompting the user for a number greater than or equal to 0:
 while True:
-    n = int(input("What's n? "))
-    if n < 0:
-        continue
-    else:
-        break
+n = int(input("What's n? "))
+if n < 0:
+continue
+else:
+break
 Notice that we’ve introduced two new keywords in Python, continue and break. continue explicitly tells Python to go to the next iteration of a loop. break, on the other hand, tells Python to “break out” of a loop early before it has finished all of its iterations. In this case, we’ll continue to the next iteration of the loop when n is less than 0—ultimately reprompting the user with “What’s n?”. If, though, n is greater than or equal to 0, we’ll break out of the loop and allow the rest of our program to run.
 It turns out that the continue keyword is redundant in this case. We can improve our code as follows:
+
 ```py
 while True:
     n = int(input("What's n? "))
@@ -141,4 +144,30 @@ def meow(n):
 
 main()
 ```
+
 Notice how not only did we change your code to operate in multiple functions, but we also used a return statement to return the value of n back to the main function.
+
+## More About Lists
+
+- Consider the world of Hogwarts from the famed Harry Potter universe.
+- In the terminal, type code hogwarts.py.
+- In the text editor, code as follows:
+
+```py
+students = ["Hermione", "Harry", "Ron"]
+
+print(students[0])
+print(students[1])
+print(students[2])
+```
+
+Notice how we have a list of students with their names as above. We then print the student who is at the 0th location, “Hermione”. Each of the other students is printed as well.
+
+- Just as we illustrated previously, we can use a loop to iterate over the list. You can improve your code as follows:
+```py
+students = ["Hermione", "Harry", "Ron"]
+
+for student in students:
+print(student)
+```
+Notice that for each student in the students list, it will print the student as intended. You might wonder why we did not use the \_ designation as discussed prior. We choose not to do this because student is explicitly used in our code.
