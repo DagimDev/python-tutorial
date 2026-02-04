@@ -29,3 +29,56 @@ As programmers, we should be defensive to ensure that our users are entering wha
 If we run this program and type “cat”, we’ll see `ValueError: invalid literal for int() with base 10: 'cat'.` In other words, the int function cannot convert the text “cat” into a number.
 
 An effective strategy to fix this potential error would be to create “error handling” to ensure the user behaves as we intend.
+
+
+## try
+- In Python try and except are ways of testing out user input before something goes wrong. Modify your code as follows:
+```py
+try:
+    x = int(input("What's x?"))
+    print(f"x is {x}")
+except ValueError:
+    print("x is not an integer")
+```
+Notice how, running this code, inputting 50 will be accepted. However, typing in cat will produce an error visible to the user, instructing them why their input was not accepted.
+
+This is still not the best way to implement this code. Notice that we are trying to do two lines of code. For best practice, we should only try the fewest lines of code possible that we are concerned could fail. Adjust your code as follows:
+```py
+try:
+    x = int(input("What's x?"))
+except ValueError:
+    print("x is not an integer")
+
+print(f"x is {x}")
+```
+Notice that while this accomplishes our goal of trying as few lines as possible, we now face a new error! We face a NameError where x is not defined. Look at this code and consider: Why is x not defined in some cases?
+
+Indeed, if you examine the order of operations in x = int(input("What's x?")), working right to left, it could take an incorrectly inputted character and attempt to assign it as an integer. If this fails, the assignment of the value of x never occurs. Therefore, there is no x to print on our final line of code.
+
+# else
+It turns out that there is another way to implement try that could catch errors of this nature.
+
+Adjust your code as follows:
+```py
+try:
+    x = int(input("What's x?"))
+except ValueError:
+    print("x is not an integer")
+else:
+    print(f"x is {x}")
+```
+Notice that if no exception occurs, it will then run the block of code within else. Running python number.py and supplying 50, you’ll notice that the result will be printed. Trying again, this time supplying cat, you’ll notice that the program now catches the error.
+
+Considering improving our code, notice that we are being a bit rude to our user. If our user does not cooperate, we currently simply end our program. Consider how we can use a loop to prompt the user for x and if they don’t prompt again!
+```py
+while True:
+    try:
+        x = int(input("What's x?"))
+    except ValueError:
+        print("x is not an integer")
+    else:
+        break
+
+print(f"x is {x}")
+```
+Notice that while True will loop forever. If the user succeeds in supplying the correct input, we can break from the loop and then print the output. Now, a user that inputs something incorrectly will be asked for input again.
