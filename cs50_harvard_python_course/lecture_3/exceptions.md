@@ -82,3 +82,68 @@ while True:
 print(f"x is {x}")
 ```
 Notice that while True will loop forever. If the user succeeds in supplying the correct input, we can break from the loop and then print the output. Now, a user that inputs something incorrectly will be asked for input again.
+
+## Creating a Function to Get an Integer
+Surely, there are many times that we would want to get an integer from our user. Modify your code as follows:
+
+```py
+def main():
+    x = get_int()
+    print(f"x is {x}")
+
+
+def get_int():
+    while True:
+        try:
+            x = int(input("What's x?"))
+        except ValueError:
+            print("x is not an integer")
+        else:
+            break
+    return x
+
+main()
+
+```
+Notice that we are manifesting many great properties. First, we have abstracted away the ability to get an integer. Now, this whole program boils down to the first three lines of the program.
+
+Even still, we can improve this program. Consider what else you could do to improve this program. Modify your code as follows:
+
+```py
+def main():
+    x = get_int()
+    print(f"x is {x}")
+
+
+def get_int():
+    while True:
+        try:
+            x = int(input("What's x?"))
+        except ValueError:
+            print("x is not an integer")
+        else:
+            return x
+
+
+main()
+```
+Notice that return will not only break you out of a loop, but it will also return a value.
+
+Some people may argue you could do the following:
+```py
+def main():
+    x = get_int()
+    print(f"x is {x}")
+
+
+def get_int():
+    while True:
+        try:
+            return int(input("What's x?"))
+        except ValueError:
+            print("x is not an integer")
+
+
+main()
+```
+Notice this does the same thing as the previous iteration of our code, simply with fewer lines.
