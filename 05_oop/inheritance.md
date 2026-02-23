@@ -1,0 +1,1 @@
+Child class inherits parent.
