@@ -1,0 +1,1 @@
+Protects data using private variables.
