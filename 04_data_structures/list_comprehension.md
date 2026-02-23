@@ -1,0 +1,1 @@
+Short way to create lists.
