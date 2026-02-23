@@ -1,0 +1,1 @@
+Lists store ordered items.
