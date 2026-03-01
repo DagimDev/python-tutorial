@@ -246,3 +246,64 @@ Notice that instead of using assert, we are taking advantage of a function withi
 Again, re-running pytest test_calculator.py, you will notice that no errors are found.
 
 In summary, it’s up to you as a coder to define as many test conditions as you see fit!
+
+
+## Testing Strings
+Going back in time, consider the following code hello.py:
+```js
+def main():
+    name = input("What's your name? ")
+    hello(name)
+
+
+def hello(to="world"):
+    print("hello,", to)
+
+
+if __name__ == "__main__":
+    main()
+```
+Notice that we may wish to test the result of the hello function.
+
+Consider the following code for test_hello.py:
+```js
+from hello import hello
+
+
+def test_hello():
+    assert hello("David") == "hello, David"
+    assert hello() == "hello, world"
+```
+Looking at this code, do you think that this approach to testing will work well? Why might this test not work well? Notice that the hello function in hello.py prints something: That is, it does not return a value!
+
+We can change our hello function within hello.py as follows:
+```js
+def main():
+    name = input("What's your name? ")
+    print(hello(name))
+
+
+def hello(to="world"):
+    return f"hello, {to}"
+
+
+if __name__ == "__main__":
+    main()
+```
+Notice that we changed our hello function to return a string. This effectively means that we can now use pytest to test the hello function.
+
+Running pytest test_hello.py, our code will pass all tests!
+
+As with our previous test case in this lesson, we can break out our tests separately:
+```js
+from hello import hello
+
+
+def test_default():
+    assert hello() == "hello, world"
+
+
+def test_argument():
+    assert hello("David") == "hello, David"
+```
+Notice that the above code separates our test into multiple functions such that they will all run, even if an error is produced.
