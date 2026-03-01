@@ -119,3 +119,130 @@ if __name__ == "__main__":
 Notice that running this code will produce multiple errors. However, it’s not producing all the errors above. This is a good illustration that it’s worth testing multiple cases such that you might catch situations where there are coding mistakes.
 
 The above code illustrates a major challenge: How could we make it easier to test your code without dozens of lines of code like the above?
+
+
+
+# pytest
+pytest is a third-party library that allows you to unit test your program. That is, you can test your functions within your program.
+To utilize pytest please type pip install pytest into your console window.
+Before applying pytest to our own program, modify your test_square function as follows:
+```py
+from calculator import square
+
+
+def main():
+    test_square()
+
+
+def test_square():
+    assert square(2) == 4
+    assert square(3) == 9
+    assert square(-2) == 4
+    assert square(-3) == 9
+    assert square(0) == 0
+```
+Notice how the above code asserts all the conditions that we want to test.
+
+pytest allows us to run our program directly through it, such that we can more easily view the results of our test conditions.
+In the terminal window, type pytest test_calculator.py. You’ll immediately notice that output will be provided. Notice the red F near the top of the output, indicating that something in your code failed. Further, notice that the red E provides some hints about the errors in your calculator.py program. Based upon the output, you can imagine a scenario where 3 * 3 has outputted 6 instead of 9. Based on the results of this test, we can go correct our calculator.py code as follows:
+```py
+def main():
+    x = int(input("What's x? "))
+    print("x squared is", square(x))
+
+
+def square(n):
+    return n * n
+
+
+if __name__ == "__main__":
+    main()
+```
+Notice that we have changed the + operator to a * in the square function, returning it to a working state.
+
+Re-running pytest test_calculator.py, notice how no errors are produced. Congratulations!
+
+At the moment, it is not ideal that pytest will stop running after the first failed test. Again, let’s return our calculator.py code back to its broken state:
+```py
+def main():
+    x = int(input("What's x? "))
+    print("x squared is", square(x))
+
+
+def square(n):
+    return n + n
+
+
+if __name__ == "__main__":
+    main()
+```
+Notice that we have changed the * operator to a + in the square function, returning it to a broken state.
+
+To improve our test code, let’s modify test_calculator.py to divide the code into different groups of tests:
+```py
+from calculator import square
+
+
+def test_positive():
+    assert square(2) == 4
+    assert square(3) == 9
+
+
+def test_negative():
+    assert square(-2) == 4
+    assert square(-3) == 9
+
+
+def test_zero():
+    assert square(0) == 0
+```
+Notice that we have divided the same five tests into three different functions. Testing frameworks like pytest will run each function, even if there was a failure in one of them. Re-running pytest test_calculator.py, you will notice that many more errors are being displayed. More error output allows you to further explore what might be producing the problems within your code.
+
+Having improved our test code, return your calculator.py code to fully working order:
+```py
+def main():
+    x = int(input("What's x? "))
+    print("x squared is", square(x))
+
+
+def square(n):
+    return n * n
+
+
+if __name__ == "__main__":
+    main()
+```
+Notice that we have changed the + operator to a * in the square function, returning it to a working state.
+
+Re-running pytest test_calculator.py, you will notice that no errors are found.
+
+Finally, we can test that our program handles exceptions. Let’s modify test_calculator.py to do just that.
+```py
+  import pytest
+
+  from calculator import square
+
+
+  def test_positive():
+      assert square(2) == 4
+      assert square(3) == 9
+
+
+  def test_negative():
+      assert square(-2) == 4
+      assert square(-3) == 9
+
+
+  def test_zero():
+      assert square(0) == 0
+
+
+  def test_str():
+      with pytest.raises(TypeError):
+          square("cat")
+```
+Notice that instead of using assert, we are taking advantage of a function within the pytest library itself called raises which allows you to express that you expect an error to be raised. We need to go to the top of our program and add import pytest and then call pytest.raises with the type of error we are expecting.
+
+Again, re-running pytest test_calculator.py, you will notice that no errors are found.
+
+In summary, it’s up to you as a coder to define as many test conditions as you see fit!
